@@ -1,6 +1,14 @@
-FROM golang:1.13.4-alpine3.10
+FROM golang:alpine as builder
+
 WORKDIR /go/src/github.com/mschneider82/ssl-proxy
 RUN apk add --no-cache make git zip
 COPY . .
 RUN make 
-ENTRYPOINT ["/go/src/github.com/mschneider82/ssl-proxy/ssl-proxy"]
+
+FROM alpine
+RUN adduser -S -D -H -h /app appuser
+RUN mkdir -p /app/.ssl-proxy ; chown -R appuser /app
+COPY --from=builder /go/src/github.com/mschneider82/ssl-proxy/ssl-proxy /app
+USER appuser
+WORKDIR /app
+ENTRYPOINT ["/app/ssl-proxy"]
