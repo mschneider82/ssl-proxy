@@ -8,6 +8,25 @@
 
 A handy and simple way to add SSL to your thing running on a VM--be it your personal jupyter notebook or your team jenkins instance. `ssl-proxy` autogenerates SSL certs and proxies HTTPS traffic to an existing HTTP server in a single command. 
 
+## Docker
+
+```sh
+docker run --rm -it mschneider82/ssl-proxy --help
+```
+
+## docker-compose
+```sh
+  ssl-proxy:
+   image: mschneider82/ssl-proxy:latest
+   command:
+   - -from
+   - 0.0.0.0:10443
+   - -to
+   - http://backend:8080
+   ports:
+     - "443:10443"
+```
+
 ## Usage
 ### With auto self-signed certificates
 ```sh
