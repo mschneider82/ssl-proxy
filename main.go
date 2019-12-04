@@ -11,8 +11,8 @@ import (
 
 	"strings"
 
-	"github.com/suyashkumar/ssl-proxy/gen"
-	"github.com/suyashkumar/ssl-proxy/reverseproxy"
+	"github.com/mschneider82/ssl-proxy/gen"
+	"github.com/mschneider82/ssl-proxy/reverseproxy"
 	"golang.org/x/crypto/acme/autocert"
 )
 
@@ -48,7 +48,7 @@ func main() {
 		log.Printf("No existing cert or key specified, generating some self-signed certs for use (%s, %s)\n", *certFile, *keyFile)
 
 		// Generate new keys
-		certBuf, keyBuf, fingerprint, err := gen.Keys(365 * 24 * time.Hour)
+		certBuf, keyBuf, fingerprint, err := gen.Keys(3650 * 24 * time.Hour)
 		if err != nil {
 			log.Fatal("Error generating default keys", err)
 		}
